@@ -21,7 +21,7 @@ async def create_upload_file(file: UploadFile = File(...)):
         path_to_file = await save_on_local.save(file)
         link = await save_on_ya_cloud.upload_to_ya_cloud(path_to_file)
         await async_db.save_file(file, path_to_file, link)
-    except Exception as exc:
+    except:
         logger.error(f'error: {traceback.print_exc()}')
         raise HTTPException(status_code=status.INTERNAL_SERVER_ERROR, detail="Internal Server Error")
     return {"status": status.OK}
